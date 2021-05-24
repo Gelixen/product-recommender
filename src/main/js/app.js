@@ -14,6 +14,8 @@ class App extends React.Component {
             incomeOptions: [],
             products: []
         };
+
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +34,11 @@ class App extends React.Component {
             .catch(console.log)
     }
 
+    handleChange(event) {
+        const {name, value} = event.target
+        this.setState({[name]: value}, this.getRecommendations)
+    }
+
     getRecommendations() {
         const {age, student, income} = this.state;
         const query = `?age=${age}&student=${student}&income=${income}`;
@@ -47,6 +54,41 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <div>
+                    <form>
+                        <div>
+                            <label htmlFor="age">What's your age?</label>
+                            <select name="age" id="age" onChange={this.handleChange}>
+                                {this.state.ageOptions.map(age => (
+                                    <option key={age.name} value={age.name}>
+                                        {age.description}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="student">Are you a student?</label>
+                            <select name="student" id="student" onChange={this.handleChange}>
+                                {this.state.studentOptions.map(student => (
+                                    <option key={student.name} value={student.name}>
+                                        {student.description}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="income">What's your yearly income?</label>
+                            <select name="income" id="income" onChange={this.handleChange}>
+                                {this.state.incomeOptions.map(income => (
+                                    <option key={income.name} value={income.name}>
+                                        {income.description}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <hr/>
+                    </form>
+                </div>
                 <div>
                     {this.state.products.map(product => (
                         <option key={product.name} value={product.name}>
