@@ -2,20 +2,30 @@ package lt.kslipaitis.recommender.service;
 
 import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
 import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
-import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
-import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
-import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
+import lt.kslipaitis.recommender.model.questionnaire.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class QuestionnaireAnswersMapper {
 
-    public QuestionnaireAnswers map(QuestionnaireAnswersDTO questionnaireAnswersDTO) {
-        AgeOption age = AgeOption.valueOf(questionnaireAnswersDTO.getAge());
-        StudentOption student = StudentOption.valueOf(questionnaireAnswersDTO.getStudent());
-        IncomeOption income = IncomeOption.valueOf(questionnaireAnswersDTO.getIncome());
+    public QuestionnaireAnswers map(QuestionnaireAnswersDTO answersDTO) {
+        return QuestionnaireAnswers.builder()
+                .age(mapAge(answersDTO))
+                .student(mapStudent(answersDTO))
+                .income(mapIncome(answersDTO))
+                .build();
+    }
 
-        return new QuestionnaireAnswers(age, student, income);
+    private IncomeOption mapIncome(QuestionnaireAnswersDTO answersDTO) {
+        return IncomeOption.valueOf(answersDTO.getIncome());
+    }
+
+    private StudentOption mapStudent(QuestionnaireAnswersDTO answersDTO) {
+        return StudentOption.valueOf(answersDTO.getStudent());
+    }
+
+    private AgeOption mapAge(QuestionnaireAnswersDTO answersDTO) {
+        return AgeOption.valueOf(answersDTO.getAge());
     }
 
 }

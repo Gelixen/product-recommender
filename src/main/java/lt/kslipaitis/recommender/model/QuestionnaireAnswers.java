@@ -1,12 +1,12 @@
 package lt.kslipaitis.recommender.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
 import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
 import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
 
-@AllArgsConstructor
+@Builder
 @Getter
 public class QuestionnaireAnswers {
 

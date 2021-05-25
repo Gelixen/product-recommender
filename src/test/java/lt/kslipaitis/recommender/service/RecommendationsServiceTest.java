@@ -21,11 +21,12 @@ class RecommendationsServiceTest {
 
     @Test
     void getRecommendations() {
-        QuestionnaireAnswers answers = new QuestionnaireAnswers(
-                AgeOption.ADULT,
-                StudentOption.YES,
-                IncomeOption.HIGH
-        );
+        QuestionnaireAnswers answers = QuestionnaireAnswers.builder()
+                .age(AgeOption.ADULT)
+                .student(StudentOption.YES)
+                .income(IncomeOption.HIGH)
+                .build();
+
         List<String> expectedProductsName = List.of(
                 new CurrentAccount().getName(),
                 new CurrentAccountPlus().getName(),

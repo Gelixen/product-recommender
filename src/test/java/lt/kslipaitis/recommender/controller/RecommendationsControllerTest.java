@@ -41,7 +41,11 @@ class RecommendationsControllerTest {
 
     @Test
     void recommendations() throws Exception {
-        QuestionnaireAnswers answers = new QuestionnaireAnswers(AgeOption.YOUTH, StudentOption.YES, IncomeOption.LOW);
+        QuestionnaireAnswers answers = QuestionnaireAnswers.builder()
+                .age(AgeOption.YOUTH)
+                .student(StudentOption.YES)
+                .income(IncomeOption.LOW)
+                .build();
 
         when(mapper.map(any(QuestionnaireAnswersDTO.class)))
                 .thenReturn(answers);
