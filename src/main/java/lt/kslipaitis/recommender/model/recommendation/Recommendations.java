@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 public class Recommendations {
 
-    private final List<Product> products;
+    private final List<ProductDTO> products;
 
 }

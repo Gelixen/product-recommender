@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class QuestionnaireAnswers {
+public class QuestionnaireAnswersDTO {
 
     private final String age;
     private final String student;

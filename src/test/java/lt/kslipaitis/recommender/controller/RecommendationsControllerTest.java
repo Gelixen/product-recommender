@@ -1,7 +1,7 @@
 package lt.kslipaitis.recommender.controller;
 
-import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
-import lt.kslipaitis.recommender.model.recommendation.Product;
+import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
+import lt.kslipaitis.recommender.model.recommendation.ProductDTO;
 import lt.kslipaitis.recommender.model.recommendation.Recommendations;
 import lt.kslipaitis.recommender.service.RecommendationsService;
 import org.junit.jupiter.api.Test;
@@ -33,8 +33,8 @@ class RecommendationsControllerTest {
 
     @Test
     void recommendations() throws Exception {
-        when(service.getRecommendations(any(QuestionnaireAnswers.class)))
-                .thenReturn(new Recommendations(singletonList(new Product("test-product-name"))));
+        when(service.getRecommendations(any(QuestionnaireAnswersDTO.class)))
+                .thenReturn(new Recommendations(singletonList(new ProductDTO("test-product-name"))));
 
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("age", "test-age");

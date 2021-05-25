@@ -1,6 +1,6 @@
 package lt.kslipaitis.recommender.controller;
 
-import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
+import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.recommendation.Recommendations;
 import lt.kslipaitis.recommender.service.RecommendationsService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +18,8 @@ public class RecommendationsController {
     }
 
     @GetMapping
-    public Recommendations getRecommendations(QuestionnaireAnswers questionnaireAnswers) {
-        return recommendationsService.getRecommendations(questionnaireAnswers);
+    public Recommendations getRecommendations(QuestionnaireAnswersDTO questionnaireAnswersDTO) {
+        return recommendationsService.getRecommendations(questionnaireAnswersDTO);
     }
 
 }
