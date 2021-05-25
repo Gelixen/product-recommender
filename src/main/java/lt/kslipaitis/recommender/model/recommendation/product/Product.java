@@ -10,9 +10,17 @@ public abstract class Product {
     public String getName() {
         return getClass().getSimpleName().replaceAll("(.)([A-Z])", "$1 $2");
     }
-    
-    public abstract boolean doApply(QuestionnaireAnswersDTO answers);
-    
+
+    public boolean doApply(QuestionnaireAnswersDTO answers) {
+        return checkAge(answers) && checkStudent(answers) && checkIncome(answers);
+    }
+
+    protected abstract boolean checkAge(QuestionnaireAnswersDTO answers);
+
+    protected abstract boolean checkStudent(QuestionnaireAnswersDTO answers);
+
+    protected abstract boolean checkIncome(QuestionnaireAnswersDTO answers);
+
     protected AgeOption getAgeOption(QuestionnaireAnswersDTO answers) {
         return AgeOption.valueOf(answers.getAge());
     }

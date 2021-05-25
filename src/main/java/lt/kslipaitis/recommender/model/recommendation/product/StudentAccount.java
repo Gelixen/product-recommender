@@ -7,9 +7,18 @@ import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
 public class StudentAccount extends Product {
 
     @Override
-    public boolean doApply(QuestionnaireAnswersDTO answers) {
-        return getStudentOption(answers) == StudentOption.YES
-                && getAgeOption(answers) != AgeOption.YOUTH;
+    protected boolean checkAge(QuestionnaireAnswersDTO answers) {
+        return getAgeOption(answers) != AgeOption.YOUTH;
+    }
+
+    @Override
+    protected boolean checkStudent(QuestionnaireAnswersDTO answers) {
+        return getStudentOption(answers) == StudentOption.YES;
+    }
+
+    @Override
+    protected boolean checkIncome(QuestionnaireAnswersDTO answers) {
+        return true;
     }
 
 }

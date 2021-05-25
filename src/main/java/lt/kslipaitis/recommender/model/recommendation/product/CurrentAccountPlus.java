@@ -7,9 +7,18 @@ import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
 public class CurrentAccountPlus extends Product {
 
     @Override
-    public boolean doApply(QuestionnaireAnswersDTO answers) {
-        return getIncomeOption(answers) == IncomeOption.HIGH
-                && getAgeOption(answers) != AgeOption.YOUTH;
+    protected boolean checkAge(QuestionnaireAnswersDTO answers) {
+        return getAgeOption(answers) != AgeOption.YOUTH;
+    }
+
+    @Override
+    protected boolean checkStudent(QuestionnaireAnswersDTO answers) {
+        return true;
+    }
+
+    @Override
+    protected boolean checkIncome(QuestionnaireAnswersDTO answers) {
+        return getIncomeOption(answers) == IncomeOption.HIGH;
     }
 
 }
