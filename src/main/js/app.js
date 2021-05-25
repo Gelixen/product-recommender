@@ -6,12 +6,16 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            age: null,
-            student: null,
-            income: null,
-            ageOptions: [],
-            studentOptions: [],
-            incomeOptions: [],
+            formValues: {
+                age: null,
+                student: null,
+                income: null
+            },
+            formOptions: {
+                ageOptions: [],
+                studentOptions: [],
+                incomeOptions: []
+            },
             products: []
         };
 
@@ -23,12 +27,16 @@ class App extends React.Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                    ageOptions: data.ageOptions,
-                    studentOptions: data.studentOptions,
-                    incomeOptions: data.incomeOptions,
-                    age: data.ageOptions[0].name,
-                    student: data.studentOptions[0].name,
-                    income: data.incomeOptions[0].name
+                    formOptions: {
+                        ageOptions: data.ageOptions,
+                        studentOptions: data.studentOptions,
+                        incomeOptions: data.incomeOptions
+                    },
+                    formValues: {
+                        age: data.ageOptions[0].name,
+                        student: data.studentOptions[0].name,
+                        income: data.incomeOptions[0].name
+                    }
                 }, this.getRecommendations);
             })
             .catch(console.log)
@@ -36,11 +44,11 @@ class App extends React.Component {
 
     handleChange(event) {
         const {name, value} = event.target
-        this.setState({[name]: value}, this.getRecommendations)
+        this.setState((prevState) => ({formValues: {...prevState.formValues, [name]: value}}), this.getRecommendations)
     }
 
     getRecommendations() {
-        const {age, student, income} = this.state;
+        const {age, student, income} = this.state.formValues;
         const query = `?age=${age}&student=${student}&income=${income}`;
 
         fetch('http://localhost:8080/api/recommendations' + query)
@@ -59,7 +67,7 @@ class App extends React.Component {
                         <div>
                             <label htmlFor="age">What's your age?</label>
                             <select name="age" id="age" onChange={this.handleChange}>
-                                {this.state.ageOptions.map(age => (
+                                {this.state.formOptions.ageOptions.map(age => (
                                     <option key={age.name} value={age.name}>
                                         {age.description}
                                     </option>
@@ -69,7 +77,7 @@ class App extends React.Component {
                         <div>
                             <label htmlFor="student">Are you a student?</label>
                             <select name="student" id="student" onChange={this.handleChange}>
-                                {this.state.studentOptions.map(student => (
+                                {this.state.formOptions.studentOptions.map(student => (
                                     <option key={student.name} value={student.name}>
                                         {student.description}
                                     </option>
@@ -79,7 +87,7 @@ class App extends React.Component {
                         <div>
                             <label htmlFor="income">What's your yearly income?</label>
                             <select name="income" id="income" onChange={this.handleChange}>
-                                {this.state.incomeOptions.map(income => (
+                                {this.state.formOptions.incomeOptions.map(income => (
                                     <option key={income.name} value={income.name}>
                                         {income.description}
                                     </option>
