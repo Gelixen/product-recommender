@@ -1,5 +1,6 @@
 package lt.kslipaitis.recommender.service;
 
+import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
 import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
 import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
@@ -20,10 +21,10 @@ class RecommendationsServiceTest {
 
     @Test
     void getRecommendations() {
-        QuestionnaireAnswersDTO answers = new QuestionnaireAnswersDTO(
-                AgeOption.ADULT.getName(),
-                StudentOption.YES.getName(),
-                IncomeOption.HIGH.getName()
+        QuestionnaireAnswers answers = new QuestionnaireAnswers(
+                AgeOption.ADULT,
+                StudentOption.YES,
+                IncomeOption.HIGH
         );
         List<String> expectedProductsName = List.of(
                 new CurrentAccount().getName(),

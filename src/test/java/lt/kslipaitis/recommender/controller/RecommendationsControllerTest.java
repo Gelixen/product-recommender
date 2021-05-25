@@ -1,8 +1,13 @@
 package lt.kslipaitis.recommender.controller;
 
+import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
 import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
+import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
+import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
+import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
 import lt.kslipaitis.recommender.model.recommendation.ProductDTO;
 import lt.kslipaitis.recommender.model.recommendation.Recommendations;
+import lt.kslipaitis.recommender.service.QuestionnaireAnswersMapper;
 import lt.kslipaitis.recommender.service.RecommendationsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +36,24 @@ class RecommendationsControllerTest {
     @MockBean
     private RecommendationsService service;
 
+    @MockBean
+    private QuestionnaireAnswersMapper mapper;
+
     @Test
     void recommendations() throws Exception {
-        when(service.getRecommendations(any(QuestionnaireAnswersDTO.class)))
+        QuestionnaireAnswers answers = new QuestionnaireAnswers(AgeOption.YOUTH, StudentOption.YES, IncomeOption.LOW);
+
+        when(mapper.map(any(QuestionnaireAnswersDTO.class)))
+                .thenReturn(answers);
+
+        when(service.getRecommendations(answers))
                 .thenReturn(new Recommendations(singletonList(new ProductDTO("test-product-name"))));
 
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("age", "test-age");
         requestParams.add("student", "test-student");
         requestParams.add("income", "test-income");
-        
+
         mockMvc.perform(get("/api/recommendations")
                 .params(requestParams))
                 .andDo(print())

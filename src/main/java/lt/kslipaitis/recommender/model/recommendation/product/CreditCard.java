@@ -1,25 +1,25 @@
 package lt.kslipaitis.recommender.model.recommendation.product;
 
-import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
 import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
+import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
 
 public class CreditCard extends Product {
 
     @Override
-    protected boolean checkAge(QuestionnaireAnswersDTO answers) {
-        return getAgeOption(answers) != AgeOption.YOUTH;
+    protected boolean checkAge(AgeOption age) {
+        return age != AgeOption.YOUTH;
     }
 
     @Override
-    protected boolean checkStudent(QuestionnaireAnswersDTO answers) {
+    protected boolean checkStudent(StudentOption student) {
         return true;
     }
 
     @Override
-    protected boolean checkIncome(QuestionnaireAnswersDTO answers) {
-        return getIncomeOption(answers) == IncomeOption.MID
-                || getIncomeOption(answers) == IncomeOption.HIGH;
+    protected boolean checkIncome(IncomeOption income) {
+        return income == IncomeOption.MID
+                || income == IncomeOption.HIGH;
     }
 
 }

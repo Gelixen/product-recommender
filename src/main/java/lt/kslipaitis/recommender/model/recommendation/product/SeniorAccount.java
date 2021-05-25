@@ -1,22 +1,23 @@
 package lt.kslipaitis.recommender.model.recommendation.product;
 
-import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
+import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
+import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
 
 public class SeniorAccount extends Product {
 
     @Override
-    protected boolean checkAge(QuestionnaireAnswersDTO answers) {
-        return getAgeOption(answers) == AgeOption.SENIOR;
+    protected boolean checkAge(AgeOption age) {
+        return age == AgeOption.SENIOR;
     }
 
     @Override
-    protected boolean checkStudent(QuestionnaireAnswersDTO answers) {
+    protected boolean checkStudent(StudentOption student) {
         return true;
     }
 
     @Override
-    protected boolean checkIncome(QuestionnaireAnswersDTO answers) {
+    protected boolean checkIncome(IncomeOption income) {
         return true;
     }
 
