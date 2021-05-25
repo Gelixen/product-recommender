@@ -5,8 +5,7 @@ import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
 import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
 import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
-import lt.kslipaitis.recommender.model.recommendation.ProductDTO;
-import lt.kslipaitis.recommender.model.recommendation.Recommendations;
+import lt.kslipaitis.recommender.model.recommendation.product.StudentAccount;
 import lt.kslipaitis.recommender.service.QuestionnaireAnswersMapper;
 import lt.kslipaitis.recommender.service.RecommendationsService;
 import org.junit.jupiter.api.Test;
@@ -50,8 +49,8 @@ class RecommendationsControllerTest {
         when(mapper.map(any(QuestionnaireAnswersDTO.class)))
                 .thenReturn(answers);
 
-        when(service.getRecommendations(answers))
-                .thenReturn(new Recommendations(singletonList(new ProductDTO("test-product-name"))));
+        when(service.getApplicableProducts(answers))
+                .thenReturn(singletonList(new StudentAccount()));
 
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
         requestParams.add("age", "test-age");
@@ -63,6 +62,6 @@ class RecommendationsControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.products", hasSize(1)))
-                .andExpect(jsonPath("$.products[*].name", containsInAnyOrder("test-product-name")));
+                .andExpect(jsonPath("$.products[*].name", containsInAnyOrder(new StudentAccount().getName())));
     }
 }

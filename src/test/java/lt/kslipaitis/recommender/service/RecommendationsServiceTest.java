@@ -1,19 +1,16 @@
 package lt.kslipaitis.recommender.service;
 
 import lt.kslipaitis.recommender.model.QuestionnaireAnswers;
-import lt.kslipaitis.recommender.model.QuestionnaireAnswersDTO;
 import lt.kslipaitis.recommender.model.questionnaire.AgeOption;
 import lt.kslipaitis.recommender.model.questionnaire.IncomeOption;
 import lt.kslipaitis.recommender.model.questionnaire.StudentOption;
-import lt.kslipaitis.recommender.model.recommendation.ProductDTO;
-import lt.kslipaitis.recommender.model.recommendation.Recommendations;
 import lt.kslipaitis.recommender.model.recommendation.product.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RecommendationsServiceTest {
 
@@ -35,12 +32,11 @@ class RecommendationsServiceTest {
                 new GoldCreditCard().getName()
         );
 
-        Recommendations recommendations = recommendationsService.getRecommendations(answers);
+        List<Product> products = recommendationsService.getApplicableProducts(answers);
 
-        assertNotNull(recommendations);
-        assertEquals(5, recommendations.getProducts().size());
-        assertThat(recommendations.getProducts())
-                .extracting(ProductDTO::getName)
+        assertEquals(5, products.size());
+        assertThat(products)
+                .extracting(Product::getName)
                 .containsExactlyInAnyOrderElementsOf(expectedProductsName);
     }
 }
