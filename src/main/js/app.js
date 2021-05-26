@@ -1,5 +1,6 @@
-import React  from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom'
+import Option from "./option";
 
 class App extends React.Component {
 
@@ -19,7 +20,7 @@ class App extends React.Component {
             products: []
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.onChangeHandler = this.onChangeHandler.bind(this);
     }
 
     componentDidMount() {
@@ -42,7 +43,7 @@ class App extends React.Component {
             .catch(console.log)
     }
 
-    handleChange(event) {
+    onChangeHandler(event) {
         const {name, value} = event.target
         this.setState((prevState) => ({formValues: {...prevState.formValues, [name]: value}}), this.getRecommendations)
     }
@@ -64,36 +65,18 @@ class App extends React.Component {
             <div>
                 <div>
                     <form>
-                        <div>
-                            <label htmlFor="age">What's your age?</label>
-                            <select name="age" id="age" onChange={this.handleChange}>
-                                {this.state.formOptions.ageOptions.map(age => (
-                                    <option key={age.name} value={age.name}>
-                                        {age.description}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="student">Are you a student?</label>
-                            <select name="student" id="student" onChange={this.handleChange}>
-                                {this.state.formOptions.studentOptions.map(student => (
-                                    <option key={student.name} value={student.name}>
-                                        {student.description}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="income">What's your yearly income?</label>
-                            <select name="income" id="income" onChange={this.handleChange}>
-                                {this.state.formOptions.incomeOptions.map(income => (
-                                    <option key={income.name} value={income.name}>
-                                        {income.description}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                        <Option id="age"
+                                question="What's your age?"
+                                options={this.state.formOptions.ageOptions}
+                                onChangeHandler={this.onChangeHandler}/>
+                        <Option id="student"
+                                question="Are you a student?"
+                                options={this.state.formOptions.studentOptions}
+                                onChangeHandler={this.onChangeHandler}/>
+                        <Option id="income"
+                                question="What's your yearly income?"
+                                options={this.state.formOptions.incomeOptions}
+                                onChangeHandler={this.onChangeHandler}/>
                         <hr/>
                     </form>
                 </div>
